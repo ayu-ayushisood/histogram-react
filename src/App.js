@@ -89,7 +89,6 @@ export default class App extends React.Component {
   }
   
   handleChange(e){
-    console.log("in", e.target)
     this.setState({
       [e.target.name]: e.target.value,
     },()=>{
