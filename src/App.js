@@ -1,6 +1,8 @@
 import React from 'react';
 import Chart from "react-google-charts";
-import './App.css'
+import './App.css';
+import Input from './components/Input/input.js'
+
 export default class App extends React.Component {
   constructor(props){
     super(props);
@@ -16,6 +18,7 @@ export default class App extends React.Component {
       validated: false
     }
     this.categories = ["Posts", "Pages"];
+    this.handleChange = this.handleChange.bind(this);
   }
   async componentDidMount(){
     let responsePosts = await fetch("https://www.vdocipher.com/blog/wp-json/wp/v2/posts?per_page=100");
@@ -86,6 +89,7 @@ export default class App extends React.Component {
   }
   
   handleChange(e){
+    console.log("in", e.target)
     this.setState({
       [e.target.name]: e.target.value,
     },()=>{
@@ -119,29 +123,23 @@ export default class App extends React.Component {
      return(
       <div className="main-container">
         <form >
-          <input 
-            type="number" 
+          <Input 
             name="lowerLimit"
             placeholder="Enter Lower limit"
             value={this.state.lowerLimit}
-            className="input"
-            onChange={this.handleChange.bind(this)}
+            onChange={this.handleChange}
           />
-          <input 
-            type="number" 
-            placeholder="Enter Upper limit"
+          <Input 
             name="upperLimit"
+            placeholder="Enter Upper limit"
             value={this.state.upperLimit}
-            className="input"
-            onChange={this.handleChange.bind(this)}
+            onChange={this.handleChange}
           />
-          <input 
-            type="number" 
-            placeholder="Enter no. of slabs"
+          <Input 
             name="slabs"
+            placeholder="Enter no. of slabs"
             value={this.state.slabs}
-            className="input"
-            onChange={this.handleChange.bind(this)}
+            onChange={this.handleChange}
           />
           <button onClick={this.submitForm.bind(this)} disabled={this.state.disabled} className="submit-btn">Make Chart</button>
         </form>
